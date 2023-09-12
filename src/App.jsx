@@ -11,13 +11,9 @@ import LoginForm from "./components/LoginForm.jsx";
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [name, setName] = useState('')
   const [username, setUsername] =useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [url, setUrl] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
   const [notificationMessage, setNotificationMessage] = useState(null)
 
@@ -67,23 +63,14 @@ const App = () => {
     window.localStorage.clear()
   }
 
-  const addBlog = async (event) => {
-    event.preventDefault()
-    const blogObject = {
-      title: title,
-      author: author,
-      url: url
-    }
+  const addBlog = async (blogObject) => {
+    blogFormRef.current.toggleVisibility()
     const returnedBlog = await blogService.create(blogObject)
     setBlogs(blogs.concat(returnedBlog))
-    setNotificationMessage(`A new blog ${title} by ${author} was added`)
+    setNotificationMessage(`A new blog ${returnedBlog.title} by ${returnedBlog.author} was added`)
     setTimeout(() => {
       setNotificationMessage(null)
     }, 5000)
-    setTitle('')
-    setAuthor('')
-    setUrl('')
-
   }
 
   const blogFormRef = useRef()
@@ -91,13 +78,7 @@ const App = () => {
     return (
     <Togglable buttonLabel="new blog" ref={blogFormRef}>
       <BlogForm
-          handleSubmit={addBlog}
-          title={title}
-          author={author}
-          url={url}
-          handleTitleChange={({target}) => setTitle(target.value)}
-          handleAuthorChange={({target}) => setAuthor(target.value)}
-          handleUrlChange={({target}) => setUrl(target.value)}
+          createBlog={addBlog}
       />
     </Togglable>
     )
