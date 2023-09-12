@@ -1,31 +1,27 @@
-const blogForm = ({addBlog, title, setTitle, author, setAuthor, url, setUrl}) => {
+import {useState} from 'react'
+
+const BlogForm = ({handleSubmit, title, handleTitleChange, author, handleAuthorChange, url, handleUrlChange}) => {
     return (
         <div>
             <h2>Create new</h2>
-            <form onSubmit={addBlog}>
+            <form onSubmit={handleSubmit}>
                 <div>
                     title
                     <input
-                        type="text"
                         value={title}
-                        name="title"
-                        onChange={({target}) => setTitle(target.value)}/>
+                        onChange={handleTitleChange}/>
                 </div>
                 <div>
                     author
                     <input
-                        type="text"
                         value={author}
-                        name="author"
-                        onChange={({target}) => setAuthor(target.value)}/>
+                        onChange={handleAuthorChange}/>
                 </div>
                 <div>
                     url
                     <input
-                        type="text"
                         value={url}
-                        name="title"
-                        onChange={({target}) => setUrl(target.value)}/>
+                        onChange={handleUrlChange}/>
                 </div>
                 <button type="submit">create</button>
             <br/><br/>
@@ -34,4 +30,4 @@ const blogForm = ({addBlog, title, setTitle, author, setAuthor, url, setUrl}) =>
     )
 }
 
-export default blogForm
+export default BlogForm
