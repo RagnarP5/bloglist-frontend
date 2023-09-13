@@ -18,9 +18,9 @@ const App = () => {
   const [notificationMessage, setNotificationMessage] = useState(null)
 
   useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+    blogService.getAll().then(blogs => {
+      setBlogs(blogs)
+    })
   }, [])
 
   useEffect(() => {
@@ -66,6 +66,7 @@ const App = () => {
   const addBlog = async (blogObject) => {
     blogFormRef.current.toggleVisibility()
     const returnedBlog = await blogService.create(blogObject)
+    console.log(returnedBlog)
     setBlogs(blogs.concat(returnedBlog))
     setNotificationMessage(`A new blog ${returnedBlog.title} by ${returnedBlog.author} was added`)
     setTimeout(() => {
@@ -108,18 +109,17 @@ const App = () => {
   return (
     <div>
       <h2>Blogs</h2>
+
           <Notification message={notificationMessage}/>
           <div>
-            {user.name} is logged in<br /><br/>
+            {user.name} is logged in <button onClick={handleLogout}>log out</button><br /><br/>
           </div>
       {blogForm()}
 
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
-      <div>
-        <button onClick={handleLogout}>log out</button>
-      </div>
+
     </div>
 
   )
