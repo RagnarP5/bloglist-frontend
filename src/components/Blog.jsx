@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikes }) => {
     const blogStyle = {
       paddingTop: 10,
       paddingLeft: 2,
@@ -14,6 +14,14 @@ const Blog = ({ blog }) => {
     }
     const buttonLabel = showMinimized ? 'view' : 'hide'
 
+    const increaseLikes = async (event) => {
+        event.preventDefault()
+        const updatedBlog = ({
+            ...blog, likes: blog.likes + 1
+        })
+        await handleLikes(updatedBlog)
+    }
+
     const extendedView = () => {
         return (
             <div>
@@ -24,7 +32,7 @@ const Blog = ({ blog }) => {
                     <a href={blog.url}>{blog.url}</a>
                 </div>
                 <div>
-                    likes {blog.likes}
+                    likes {blog.likes} <button onClick={increaseLikes}>like</button>
                 </div>
                 {blog.user != null &&
                 <div>
