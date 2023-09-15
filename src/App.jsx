@@ -93,6 +93,14 @@ const App = () => {
     )
   }
 
+  const handleDelete = async (blog) => {
+
+    if (window.confirm(`Delete ${blog.title}?`)) {
+      await blogService.remove(blog.id)
+      setNotificationMessage(`Blog ${blog.title}`)
+    }
+    setBlogs(blogs.filter(b => b.id !== blog.id))
+  }
 
   if (user === null) {
     return (
@@ -125,7 +133,7 @@ const App = () => {
       {blogForm()}
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} handleLikes={handleLikes}/>
+        <Blog key={blog.id} blog={blog} handleLikes={handleLikes} handleDelete={handleDelete}/>
       )}
 
     </div>

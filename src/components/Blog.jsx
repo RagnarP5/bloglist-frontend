@@ -1,6 +1,7 @@
 import {useState} from 'react'
+import PropTypes from "prop-types";
 
-const Blog = ({ blog, handleLikes }) => {
+const Blog = ({ blog, handleLikes, handleDelete }) => {
     const blogStyle = {
       paddingTop: 10,
       paddingLeft: 2,
@@ -22,6 +23,12 @@ const Blog = ({ blog, handleLikes }) => {
         await handleLikes(updatedBlog)
     }
 
+    const deleteBlog = async (event) => {
+        event.preventDefault()
+        console.log("button clicked")
+        await handleDelete(blog)
+    }
+
     const extendedView = () => {
         return (
             <div>
@@ -38,6 +45,9 @@ const Blog = ({ blog, handleLikes }) => {
                 <div>
                     {blog.user.name}
                 </div>}
+                <div>
+                    <button onClick={deleteBlog}>remove</button>
+                </div>
             </div>
         )
     }
@@ -53,5 +63,13 @@ const Blog = ({ blog, handleLikes }) => {
      </div>
 )
 }
+
+Blog.propTypes = {
+    blog: PropTypes.object.isRequired,
+    handleLikes: PropTypes.func.isRequired,
+    handleDelete: PropTypes.func.isRequired
+}
+
+Blog.displayName = 'Blog'
 
 export default Blog
