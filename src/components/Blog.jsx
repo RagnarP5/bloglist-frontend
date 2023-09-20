@@ -31,7 +31,7 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
 
     const extendedView = () => {
         return (
-            <div>
+            <div className='blog'>
                 <div>
                     {blog.title} {blog.author} <button onClick={toggleViewHide}>{buttonLabel}</button>
                 </div>
