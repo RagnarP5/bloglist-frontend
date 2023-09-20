@@ -33,27 +33,27 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
         return (
             <div className='blog'>
                 <div>
-                    {blog.title} {blog.author} <button onClick={toggleViewHide}>{buttonLabel}</button>
+                    {blog.title} {blog.author} <button id='view-hide-button' onClick={toggleViewHide}>{buttonLabel}</button>
                 </div>
                 <div>
                     <a href={blog.url}>{blog.url}</a>
                 </div>
                 <div>
-                    likes {blog.likes} <button onClick={increaseLikes}>like</button>
+                    likes {blog.likes} <button id='increase-likes-button' onClick={increaseLikes}>like</button>
                 </div>
                 {blog.user != null &&
                 <div>
                     {blog.user.name}
                 </div>}
                 <div>
-                    <button onClick={deleteBlog}>remove</button>
+                    <button id='remove-blog-button' onClick={deleteBlog}>remove</button>
                 </div>
             </div>
         )
     }
     const minimizedView = () => {
         return (<div>
-            {blog.title} {blog.author} <button onClick={toggleViewHide}>{buttonLabel}</button>
+            {blog.title} {blog.author} <button id='view-hide-button' onClick={toggleViewHide}>{buttonLabel}</button>
         </div> )
     }
 
